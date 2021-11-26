@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+//traigo todas las funciones de la api 
+const api = require('../api');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -14,6 +17,14 @@ router.get('/nosotros', (req, res) => {
 /* GET contacto page */
 router.get('/contacto', (req, res) => {
   res.render('pages/contacto', { title: 'Contacto' });
+});
+
+//http://localhost:3000/libros
+router.get('/libros', async (req, res) => {
+  //llamar a la funcion getBooks
+  const books = await api.getBooks();
+  //Devolver el JSON con los libros recibidos
+  res.send(books);
 });
 
 module.exports = router;
