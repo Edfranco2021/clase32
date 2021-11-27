@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listado de libros</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%- include('../partials/nav.ejs') %>
+    
+    <h1>listado de libros</h1>
+
+    <ul class="lista">
+        <% books.forEach(book =>{ %>
+            <li class="lista-item">
+                <a href="/libro/<%= book.idLibro %>" class="lista-item_link">
+                    <img src="/images/rino.jpg" alt="rino" class="lista-item_img">
+                    <h2 class="lista-item_titulo">
+                        <%= book.titulo %>
+                    </h2>
+                </a>
+            </li>
+
+        <% }) %>
+        
+    </ul> <!--aca cierra el ul     -->
+
+
+    
+  </body>
+</html>
