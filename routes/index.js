@@ -1,3 +1,4 @@
+const { application } = require('express');
 var express = require('express');
 var router = express.Router();
 
@@ -26,5 +27,16 @@ router.get('/libros', async (req, res) => {
   //Devolver el JSON con los libros recibidos
   res.send(books);
 });
+
+//http://localhost:3000/libro/5
+router.get('/libro/:id', async (req,res) => {
+  console.log('la ruta trajo : '+ req.params.id);
+  const book =await api.getBookById(req.params.id);
+  
+  //res.send('Hola vas bien!');
+  res.send(book);
+});
+
+
 
 module.exports = router;
