@@ -20,7 +20,7 @@ const getBookById = async (id)=>{
     console.log('-*-*-*-*-*-**--*-**-*-');
     //SELECT * FROM libros WHERE id_libro =4
     const book =await db.libro.findByPk(id, {
-
+        include : db.autor
     }).then(result => {
         return result;
     });

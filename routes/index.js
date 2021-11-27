@@ -30,11 +30,12 @@ router.get('/libros', async (req, res) => {
 
 //http://localhost:3000/libro/5
 router.get('/libro/:id', async (req,res) => {
-  console.log('la ruta trajo : '+ req.params.id);
+  //console.log('la ruta trajo : '+ req.params.id);
   const book =await api.getBookById(req.params.id);
   
   //res.send('Hola vas bien!');
-  res.send(book);
+  //res.send(book);
+  res.render('pages/libro', { book });
 });
 
 
