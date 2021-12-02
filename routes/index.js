@@ -20,6 +20,14 @@ router.get('/resultados',async (req, res)=> {
   res.send(results);
 });
 
+/*Get agregar page */
+router.get('/agregar',async (req,res) => {
+  const authors = await api.getAuthors();
+
+  console.log(authors);
+  res.render('pages/agregar');
+});
+
 /* GET nosotros page */
 router.get('/nosotros', (req, res) => {
   res.render('pages/nosotros', { title: 'Nosotros' });
