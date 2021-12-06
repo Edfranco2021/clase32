@@ -25,9 +25,16 @@ router.get('/agregar',async (req,res) => {
   const authors = await api.getAuthors();
 
   console.log(authors);
-  res.render('pages/agregar');
+  //le envio los autores al EJS
+  res.render('pages/agregar', { authors });
 });
 
+router.post('/agregar-libro', (req, res)=>{
+  //levantar los datos de un formulario  de agregar 
+  console.log(req.body);
+  
+  res.send('vas bien');
+});
 /* GET nosotros page */
 router.get('/nosotros', (req, res) => {
   res.render('pages/nosotros', { title: 'Nosotros' });
