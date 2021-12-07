@@ -6,14 +6,14 @@ var router = express.Router();
 const api = require('../api');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 /*GET /resultados page */
-router.get('/resultados',async (req, res)=> {
+router.get('/resultados', async (req, res) => {
   /*consegui lo que el usuario tipeo */
-  const {titulo} =req.query;
+  const { titulo } = req.query;
   //console.log(req.query);
   //enviar titulo a la llamada de la API
   const results = await api.searchByTitle(titulo);
@@ -21,7 +21,7 @@ router.get('/resultados',async (req, res)=> {
 });
 
 /*Get agregar page */
-router.get('/agregar',async (req,res) => {
+router.get('/agregar', async (req, res) => {
   const authors = await api.getAuthors();
 
   console.log(authors);
@@ -29,10 +29,20 @@ router.get('/agregar',async (req,res) => {
   res.render('pages/agregar', { authors });
 });
 
-router.post('/agregar-libro', (req, res)=>{
+//POST AGREGAR LIBRO, PROCESO
+/*
+REQuest -> solicitud
+  req.
+      params (:id)
+      query (?q=sacsdadv)
+      body (formularios con post) -> se usa para formularios
+*/
+router.post('/agregar-libro', async (req, res) => {
   //levantar los datos de un formulario  de agregar 
   console.log(req.body);
-  
+  const { titulo, precio, portada, autor } = req.body;
+  await api.addBook(titulo, precio, portada, autor);
+
   res.send('vas bien');
 });
 /* GET nosotros page */
@@ -50,14 +60,14 @@ router.get('/libros', async (req, res) => {
   //llamar a la funcion getBooks
   const books = await api.getBooks();
   //Devolver el JSON con los libros recibidos
-  res.render('pages/libros', { books});
+  res.render('pages/libros', { books });
 });
 
 //http://localhost:3000/libro/5
-router.get('/libro/:id', async (req,res) => {
+router.get('/libro/:id', async (req, res) => {
   //console.log('la ruta trajo : '+ req.params.id);
-  const book =await api.getBookById(req.params.id);
-  
+  const book = await api.getBookById(req.params.id);
+
   //res.send('Hola vas bien!');
   //res.send(book);
   res.render('pages/libro', { book });
